@@ -1,7 +1,7 @@
 from random import randint
 
 generatedInput = ""
-for i in range(10000):
+for i in range(20000):
     if randint(0, 1) == 0:
         generatedInput += '<'
     else:
