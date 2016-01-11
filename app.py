@@ -17,8 +17,13 @@ def getDay(day):
     if day < 10:
         day = '0' + str(day)
 
-    problem = ''.join(open('static/input/' + day).readlines()).decode('utf8')
-    return render_template('day.html', day=day, problem=problem)
+    problem = [i.decode('utf8')
+               for i in open('static/input/' + day).readlines()]
+
+    return render_template('day.html',
+                           day=day,
+                           problem=problem[1:],
+                           name=problem[0])
 
 
 @app.errorhandler(404)

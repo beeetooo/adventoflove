@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 
 {% block title %}
-	Advent of Love (like adventofcode, but with Bryan)
+	Day {{ day }} - {{ name }}
 {% endblock %}
 
 {% block content %}
 	<div class="container">
-		<h1>Problem {{ day }}</h1>
+		<h1>Day {{ day }} - {{ name }} </h1>
 		<div id="problem">
-			{{ problem }}
+			{% for item in problem %}
+    			{{ item }} <br/>
+			{% endfor %}
 		</div>
 	</div>
 {% endblock %}
