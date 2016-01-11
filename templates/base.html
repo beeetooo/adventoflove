@@ -11,6 +11,8 @@
 		{% endblock %}
 	</head>
 	<body>
+		<div id="fb-root"></div>
+		<script src="{{ url_for('static', filename='js/lib/fb.js') }}" ></script>
 		{% block navbar %}
 			<nav class="navbar navbar-inverse" role="navigation">
 				<div class="container">
@@ -28,7 +30,7 @@
 		<div id="footer">
 			<div class="container">
 				{% block footer %}
-					&copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.
+					Made with &hearts; by <a href="http://setzer777.github.io/">Alberto Romero</a>.
 				{% endblock %}
 			</div>
 		</div>

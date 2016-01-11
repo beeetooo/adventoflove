@@ -4,6 +4,7 @@ from flask.ext.bootstrap import Bootstrap
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -11,11 +12,10 @@ def index():
 
 @app.route('/day/<int:day>')
 def getDay(day):
-    if day < 0 or day > 14:
+    if day <= 0 or day > 14:
         return 'Day is out of range: ' + day
 
-    if day < 10:
-        day = '0' + str(day)
+    day = str(day)
 
     problem = [i.decode('utf8')
                for i in open('static/input/' + day).readlines()]
@@ -24,6 +24,11 @@ def getDay(day):
                            day=day,
                            problem=problem[1:],
                            name=problem[0])
+
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
 
 @app.errorhandler(404)
