@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Advent of Love (like adventofcode, but with Bryan)
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<h1>Problem {{ day }}</h1>
+		<div id="problem">
+			{{ problem }}
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<!-- // <script src="{{ url_for('static', filename='js/loadProblem.js') }}" ></script> -->
+{% endblock %}

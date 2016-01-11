@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		{% block head %}
+			<link rel="stylesheet" href="{{ url_for('static', filename='css/lib/reset.css') }}" />
+			<link rel="stylesheet" href="{{ url_for('static', filename='css/adventoflove.css') }}" />
+			<link rel="stylesheet" href="{{ url_for('static', filename='css/lib/bootstrap.min.css') }}" />
+			<script src="{{ url_for('static', filename='js/lib/jquery.js') }}" ></script>
+
+			<title>{% block title %}{% endblock %}</title>
+		{% endblock %}
+	</head>
+	<body>
+		{% block navbar %}
+			<nav class="navbar navbar-inverse" role="navigation">
+				<div class="container">
+					<a class="navbar-brand" href="{{ url_for('index') }}">Advent Of Love</a>
+				</div>
+			</nav>
+		{% endblock %}
+
+		{% block scripts %}
+		{% endblock %}
+
+		<script src="{{ url_for('static', filename='js/lib/bootstrap.min.js') }}" ></script>
+
+		<div id="content">{% block content %}{% endblock %}</div>
+		<div id="footer">
+			<div class="container">
+				{% block footer %}
+					&copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.
+				{% endblock %}
+			</div>
+		</div>
+	</body>
+</html>
