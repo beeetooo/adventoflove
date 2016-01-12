@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, Markup
 from flask.ext.bootstrap import Bootstrap
 
 app = Flask(__name__)
@@ -17,7 +17,7 @@ def getDay(day):
 
     day = str(day)
 
-    problem = [i.decode('utf8')
+    problem = [Markup(i.decode('utf8'))
                for i in open('static/input/' + day).readlines()]
 
     return render_template('day.html',

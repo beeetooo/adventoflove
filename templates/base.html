@@ -18,9 +18,14 @@
                     <a class="navbar-brand" href="{{ url_for('index') }}">Advent Of Love</a>
                 </div>
             </nav>
-            <fb:login-button scope="public_profile, email" onlogin="checkLoginState();">
-            </fb:login-button>
-            <div id="status">
+        {% endblock %}
+        {% block login_buttons %}
+            <div class="container">
+                <fb:login-button scope="public_profile, email" onlogin="checkLoginState();">
+                </fb:login-button>
+                <div id="status"></div>
+                <a href="https://github.com/login/oauth/authorize?client_id=afe3fcfa67c8241657e1">github</a>
+                <script src="https://apis.google.com/js/platform.js" async defer></script>
             </div>
         {% endblock %}
         {% block scripts %}
