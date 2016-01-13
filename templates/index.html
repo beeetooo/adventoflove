@@ -3,7 +3,11 @@
 {% block title %}
 Advent of Love (like adventofcode, but with Bryan)
 {% endblock %}
-
+{% block user %}
+    <div class="container">
+        <h1>Welcome Back, {{ user }}</h1>
+    </div>
+{% endblock %}
 {% block content %}
 	<div class="container">
 		<h1> We did it reddit </h1>

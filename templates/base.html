@@ -5,31 +5,30 @@
             <link rel="stylesheet" href="{{ url_for('static', filename='css/lib/reset.css') }}" />
             <link rel="stylesheet" href="{{ url_for('static', filename='css/adventoflove.css') }}" />
             <link rel="stylesheet" href="{{ url_for('static', filename='css/lib/bootstrap.min.css') }}" />
+            <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
             <script src="{{ url_for('static', filename='js/lib/jquery.js') }}" ></script>
             <title>{% block title %}{% endblock %}</title>
+            <script src="{{ url_for('static', filename='js/build/browser.min.js') }}"></script>
         {% endblock %}
     </head>
     <body>
         <div id="fb-root"></div>
-        <script src="{{ url_for('static', filename='js/lib/fb.js') }}" ></script>
         {% block navbar %}
             <nav class="navbar navbar-inverse" role="navigation">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url_for('index') }}">Advent Of Love</a>
+                    <div class="container" id="login-buttons">
+                    </div>
                 </div>
             </nav>
         {% endblock %}
+        {% block user %}{% endblock %}
         {% block login_buttons %}
-            <div class="container">
-                <fb:login-button scope="public_profile, email" onlogin="checkLoginState();">
-                </fb:login-button>
-                <div id="status"></div>
-                <a href="https://github.com/login/oauth/authorize?client_id=afe3fcfa67c8241657e1">github</a>
-                <script src="https://apis.google.com/js/platform.js" async defer></script>
-            </div>
+            <!-- // <script type="text/babel" src="{{ url_for('static', filename='js/main.js') }}" ></script> -->
+            <script type="text/babel" src="{{ url_for('static', filename='js/lib/fb.js') }}" ></script>
         {% endblock %}
-        {% block scripts %}
-        {% endblock %}
+        {% block scripts %}{% endblock %}
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
         <script src="{{ url_for('static', filename='js/lib/bootstrap.min.js') }}" ></script>
         <div id="content">{% block content %}{% endblock %}</div>
         <div id="footer">
@@ -39,5 +38,8 @@
                 {% endblock %}
             </div>
         </div>
+        <script src="{{ url_for('static', filename='js/build/react.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/build/react-dom.js') }}"></script>
+
     </body>
 </html>
