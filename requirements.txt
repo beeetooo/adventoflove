@@ -1,5 +1,4 @@
 decorator==4.0.2
-defer==1.0.6
 Flask==0.10.1
 Flask-Bootstrap==3.3.5.7
 Flask-Migrate==1.7.0
@@ -9,10 +8,6 @@ Flask-RESTful==0.3.4
 Flask-Script==2.0.5
 Flask-SQLAlchemy==2.1
 Flask-WTF==0.12
-Glances==2.5.1
-ipython==4.0.0
-ipython-genutils==0.1.0
-itsdangerous==0.24
 Jinja2==2.8
 MarkupSafe==0.23
 mongoengine==0.10.0
@@ -21,12 +16,6 @@ Pillow==2.9.0
 psycopg2==2.4.5
 py==1.4.30
 pymongo==2.7
-pytest==2.8.2
-python-apt===0.9.3.5ubuntu2
-python-dateutil==2.4.2
-python-debian===0.1.21-nmu2ubuntu2
-python-editor==0.5
-PyYAML==3.11
 requests==2.8.1
 simplejson==3.8.1
 SQLAlchemy==1.0.0
