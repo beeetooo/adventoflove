@@ -1,32 +1,38 @@
 from flask import Flask, render_template, Markup, make_response, request,\
-    redirect, url_for, session, flash
-# from flask.ext.sqlalchemy import SQLAlchemy
+    redirect, url_for
+from flask.ext.sqlalchemy import SQLAlchemy
 import json
-import pymongo
-import os
 import requests
-from flask.ext.pymongo import PyMongo
+import models
+
+
+class Config(object):
+    DEBUG = False
+    TESTING = False
+    CSRF_ENABLED = True
+    SECRET_KEY = 'this-really-needs-to-be-changed'
+    SQLALCHEMY_DATABASE_URI = 'postgresql:///adventoflove'
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+
+
+class DevelopmentConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = \
-#     'postgresql://postgres:kiensabe1@localhost/adventoflove'
-# db = SQLAlchemy(app)
-app.secret_key = "asdaisofasdfoinaidjfoadf"
-# app.config["MONGODB_SETTINGS"] = {'DB': "adventoflove"}
-# app.config["SECRET_KEY"] = "KeepThisS3cr3t"
-# mongo = PyMongo(app)
-# connection = pymongo.Connection()
-# db = connection.adventoflove
-# users = db.users
-app.config.from_object(os.environ['APP_SETTINGS'])
-loggedIn = False
+app.config.from_object(DevelopmentConfig)
+db = SQLAlchemy(app)
 
 
 @app.route('/')
 def index():
-    user = users.find()
-    for i in user:
-        print i
+    user = request.cookies.get('username')
+    if not user:
+        user = ""
+    else:
+        user = "back, " + user
+
     return render_template('index.html', user=user)
 
 
@@ -76,20 +82,16 @@ def callbackLoginWithGithub():
     return response
 
 
-@app.route('/api/login/facebook', methods=['POST'])
+@app.route('/api/login/facebook', methods=['GET'])
 def callbackLoginWithFacebook():
-    app.loggedIn = True
-    return request.form['name']
-
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
+    #Todo: Receive the user info and store into the db
+    return redirect(url_for('index'))
 
 
 @app.route('/logged')
 def loggedIn():
-    return make_response(app.LoggedIn)
+    #Todo: Return if the user is logged in
+    return make_response(False)
 
 
 @app.route('/leaderboard')

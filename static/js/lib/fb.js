@@ -1,14 +1,36 @@
+
+// Load the Facebook SDK asynchronously (Obligatory)
+// No need to know what this code does.
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '219885665012850',
+    cookie     : true,
+    xfbml      : true,
+    version    : 'v2.2'
+  });
+
+  //Once we are connected, we seek for the user info
+  FB.Event.subscribe('auth.authResponseChange', function(response) {
+    if (response.status === 'connected') {
+      retrieveUserInfo();
+    }
+  });
+};
+
+
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
-  console.log('statusChangeCallback');
-  console.log(response);
-  // The response object is returned with a status field that lets the
-  // app know the current login status of the person.
-  // Full docs on the response object can be found in the documentation
-  // for FB.getLoginStatus().
   if (response.status === 'connected') {
     // Logged into your app and Facebook.
-    testAPI();
+    retrieveUserInfo();
   } else if (response.status === 'not_authorized') {
     // The person is logged into Facebook, but not your app.
     console.log("Not authorized by Facebook");
@@ -28,86 +50,36 @@ function checkLoginState() {
   });
 }
 
-window.fbAsyncInit = function() {
-FB.init({
-  appId      : '219885665012850',
-  cookie     : false,  // enable cookies to allow the server to access
-                      // the session
-  xfbml      : true,  // parse social plugins on this page
-  version    : 'v2.2' // use version 2.2
-});
 
-// Now that we've initialized the JavaScript SDK, we call
-// FB.getLoginStatus().  This function gets the state of the
-// person visiting this page and can return one of three states to
-// the callback you provide.  They can be:
-//
-// 1. Logged into your app ('connected')
-// 2. Logged into Facebook, but not your app ('not_authorized')
-// 3. Not logged into Facebook and can't tell if they are logged into
-//    your app or not.
-//
-// These three cases are handled in the callback function.
-
-
-
-};
-
-// Load the SDK asynchronously
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
-// Here we run a very simple test of the Graph API after login is
-// successful.  See statusChangeCallback() for when this call is made.
-
-function testAPI() {
+function retrieveUserInfo() {
   console.log('Welcome!  Fetching your information.... ');
   FB.api('/me?fields=name,email', function(response) {
-    console.log(response);
-    console.log('Successful login for: ' + response.name);
-    $.ajax({
-      type: "POST",
-      url: "/api/login/facebook",
-      data: response
-    })
-    .done(function(data){
-      console.log(data);
-    });
-
-    $.ajax({
-      type: "GET",
-      url: "/logged",
-    })
+    console.log('We got the info! Name: ' + response.name);
+    //TODO: Store username and email data in our DB.
   });
 }
 
-var FacebookButton = React.createClass({
-  getInitialState: function(){
-      return { loggedIn: false };
-  },
-  handleFacebookClick: function(){
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  },
+
+
+//Wrapper for all the front-end logic in the login buttons
+var LoginButtons = React.createClass({
   render: function() {
   return(
     <div>
-      <button onClick={this.handleFacebookClick}>
-        {this.props.name}
-      </button>
+      <div className="fb-login-button"
+           data-max-rows="1"
+           data-size="large"
+           data-show-faces="false"
+           data-auto-logout-link="false">
+      </div>
       <a href={this.props.github_url}>github</a>
       <div id="status"></div>
     </div>
     );
 }});
 
+//React.js renders the classes we build in this way.
 ReactDOM.render(
-<FacebookButton name="sad" github_url="https://github.com/login/oauth/authorize?client_id=afe3fcfa67c8241657e1"/>,
+<LoginButtons name="Login FB" github_url="https://github.com/login/oauth/authorize?client_id=afe3fcfa67c8241657e1"/>,
 document.getElementById('login-buttons')
 );
