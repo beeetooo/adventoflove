@@ -10,7 +10,7 @@ Before everything else, it's suggested to have a [Virtualenv](http://docs.python
    ```
 2. Install the dependencies from this project:
    ```
-   $ pip install -r requirements.txt
+   $ sudo pip install -r requirements.txt
    ```
 3. You'll also need to install postgresql
    ```
