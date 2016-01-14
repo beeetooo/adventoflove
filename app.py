@@ -1,11 +1,9 @@
 from flask import Flask, render_template, Markup, make_response, request,\
-    redirect, url_for, session, flash
+    redirect, url_for
 from flask.ext.sqlalchemy import SQLAlchemy
 import json
-import pymongo
-import os
 import requests
-from flask.ext.pymongo import PyMongo
+import models
 
 
 class Config(object):
@@ -27,24 +25,14 @@ app.config.from_object(DevelopmentConfig)
 db = SQLAlchemy(app)
 
 
-class AOCUser(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True)
-    email = db.Column(db.String(120), unique=True)
-
-    def __init__(self, username, email):
-        self.username = username
-        self.email = email
-
-    def __repr__(self):
-        return '<User %r>' % self.username
-
-
 @app.route('/')
 def index():
-    user = users.find()
-    for i in user:
-        print i
+    user = request.cookies.get('username')
+    if not user:
+        user = ""
+    else:
+        user = "back, " + user
+
     return render_template('index.html', user=user)
 
 
@@ -94,19 +82,15 @@ def callbackLoginWithGithub():
     return response
 
 
-@app.route('/api/login/facebook', methods=['POST'])
+@app.route('/api/login/facebook', methods=['GET'])
 def callbackLoginWithFacebook():
-    app.loggedIn = True
-    return request.form['name']
-
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
+    #Todo: Receive the user info and store into the db
+    return redirect(url_for('index'))
 
 
 @app.route('/logged')
 def loggedIn():
+    #Todo: Return if the user is logged in
     return make_response(False)
 
 

@@ -1,45 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        {% block head %}
-            <link rel="stylesheet" href="{{ url_for('static', filename='css/lib/reset.css') }}" />
-            <link rel="stylesheet" href="{{ url_for('static', filename='css/adventoflove.css') }}" />
-            <link rel="stylesheet" href="{{ url_for('static', filename='css/lib/bootstrap.min.css') }}" />
-            <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
-            <script src="{{ url_for('static', filename='js/lib/jquery.js') }}" ></script>
-            <title>{% block title %}{% endblock %}</title>
-            <script src="{{ url_for('static', filename='js/build/browser.min.js') }}"></script>
-        {% endblock %}
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/lib/reset.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/adventoflove.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/lib/bootstrap.min.css') }}" />
+        <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+        <script src="{{ url_for('static', filename='js/lib/jquery.js') }}" ></script>
+        <script src="{{ url_for('static', filename='js/build/browser.min.js') }}"></script>
     </head>
     <body>
+        <!-- Div from the FB API, we don't handle it -->
         <div id="fb-root"></div>
-        {% block navbar %}
-            <nav class="navbar navbar-inverse" role="navigation">
-                <div class="container">
-                    <a class="navbar-brand" href="{{ url_for('index') }}">Advent Of Love</a>
-                    <div class="container" id="login-buttons">
-                    </div>
+        <nav class="navbar navbar-inverse" role="navigation">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url_for('index') }}">Advent Of Love</a>
+            {% block login_buttons %}
+                <div class="container" id="login-buttons">
                 </div>
-            </nav>
-        {% endblock %}
+                <script type="text/babel" src="{{ url_for('static', filename='js/lib/fb.js') }}" ></script>
+            {% endblock %}
+            </div>
+        </nav>
         {% block user %}{% endblock %}
-        {% block login_buttons %}
-            <!-- // <script type="text/babel" src="{{ url_for('static', filename='js/main.js') }}" ></script> -->
-            <script type="text/babel" src="{{ url_for('static', filename='js/lib/fb.js') }}" ></script>
-        {% endblock %}
         {% block scripts %}{% endblock %}
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         <script src="{{ url_for('static', filename='js/lib/bootstrap.min.js') }}" ></script>
         <div id="content">{% block content %}{% endblock %}</div>
         <div id="footer">
             <div class="container">
-                {% block footer %}
-                    Made with &hearts; by <a href="http://setzer777.github.io/">Alberto Romero</a>.
-                {% endblock %}
+                Made with &hearts; by <a href="http://setzer777.github.io/">Alberto Romero</a>.
             </div>
         </div>
         <script src="{{ url_for('static', filename='js/build/react.js') }}"></script>
         <script src="{{ url_for('static', filename='js/build/react-dom.js') }}"></script>
-
     </body>
 </html>
