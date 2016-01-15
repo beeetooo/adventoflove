@@ -1,5 +1,28 @@
-#Do you wanna go for... pizzas?
+#Let's do Bowling!
 
-A primera hora, Bryan estaba en el salón de Melanie, explicándole cómo realizó su tarea para que en un futuro, ella supiera cómo encontrar los números intuitivamente (que romántico).
+A primera hora, Bryan estaba en el salón de Melanie, explicándole cómo realizó su tarea para que en un futuro, ella supiera cómo encontrar los números que le encargaron, de manera rápida (que romántico).
 
-Saliendo de clases, Bryan se juntó con sus amigos en la salida, y estaban planeando ir a comer unas pizzas al
+Saliendo de clases, Bryan se juntó con sus amigos en la salida, y estaban planeando ir a un billar. Arely obviamente estaba ahí, y sugirió invitar a Melanie, y aunque Bryan dijo que no, a los 5 segundos, Melanie ya estaba con ellos. Bryan no sabía como había vencido sus nervios para ayudar a Melanie con su tarea, y ahora que saldrían todos sus manos temblaban y solo verla lo ponía nervioso :S
+
+Ya en el billar, mientras Bryan jugaba con sus amigos, Melanie le comentaba a Arely lo inteligente que Bryan era, y que empezaba a atraerle su amabilidad, a parte de que realmente era un chico atractivo, sólo lo describio como "un poco geek".
+
+Después de un rato, Melanie retó a Bryan a un juego de billar, pero propuso un reglamento que se encontró en reddit, donde las reglas son:
+
+1. Cada jugador tiene asignado un tipo de bolas, ya sea rayadas o lisas.
+2. Debes intentar meter la bola más cerca de la bola blanca.
+3. Si metes una bola que no es del tipo que tienes asignado, los puntos se restaran.
+4. La bola 8 siempre da puntos positivos.
+5. El ganador será el que tenga la maxima suma de numeros en serie ascendente de uno en uno.
+
+Ejemplos de series ascendente de uno en uno: [1, 2, 3], [5, 6], [10, 11].
+En el primer juego de prueba, los puntajes fueron:
+
+Bryan -> {9, 8, -11, 5, 6, 1, 2, -14}
+Melanie -> {3, 4, -12, -13, 5, 2, 1, 2, -14}
+
+En el juego de Bryan, la lista de números en serie ascendente de uno en uno es: [(5, 6), (1, 2)].
+[9, 8] es una serie descendente, la cual no se toma en cuenta para obtener el puntaje.
+
+Con esto, podemos hacer el calculo: 5+6 > 1+2, por lo tanto 11 es el puntaje más alto de las series ascendentes.
+
+Tras jugar algunos juegos durante el día, ¿Cuántos juegos ganó Bryan?
