@@ -1,11 +1,13 @@
 from flask import Flask, render_template, Markup, make_response, request,\
-    redirect, url_for
+    redirect, url_for, flash
 from flask.ext.sqlalchemy import SQLAlchemy
 import json
 import requests
 import models
+import constants
 
 
+#Config objects for SQLAlchemy
 class Config(object):
     DEBUG = False
     TESTING = False
@@ -27,7 +29,7 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
-    user = request.cookies.get('username')
+    user = request.cookies.get('adventoflove_username')
     if not user:
         user = ""
     else:
@@ -43,6 +45,7 @@ def getDay(day):
 
     day = str(day)
 
+    # Markup converts from text to html
     problem = [Markup(i.decode('utf8'))
                for i in open('static/input/' + day).readlines()]
 
@@ -66,32 +69,78 @@ def getInput(day):
 
 @app.route('/api/login/github')
 def callbackLoginWithGithub():
-    client_id = 'afe3fcfa67c8241657e1'
-    client_secret = 'cd7fb231409e0c4ab10538fdf430a0f10a0ad162'
-    code = request.args.get('code')
-    headers = {'Accept': 'application/json'}
-    apiReply = requests.post('https://github.com/login/oauth/access_token',
-                             data={'client_id': client_id,
-                                   'client_secret': client_secret,
-                                   'code': code},
-                             headers=headers)
+    # This code is given to us after making a post to github in order to
+    # get the accessToken. With it, we can request for the information of
+    # a certain user, but we only need the name and the email
+    try:
+        code = request.args.get('code')
+        accessToken = getGithubAccessToken(code)
+        username, email = getNameAndEmailFromGithub(accessToken)
+        newUser = storeUserWithJson(username, email)
+        app.logger.info('User created successfully: ' + str(newUser))
+        response = make_response(url_for('index'))
+        response.set_cookie('adventoflove_username', username)
+        return response
+    except Exception as e:
+        app.logger.error(e)
 
-    apiToken = json.loads(apiReply.content)
-    response = make_response(apiToken['access_token'])
-    response.headers['Content-Type'] = 'text/plain'
-    return response
-
-
-@app.route('/api/login/facebook', methods=['GET'])
-def callbackLoginWithFacebook():
-    #Todo: Receive the user info and store into the db
     return redirect(url_for('index'))
+
+
+def getGithubAccessToken(code):
+    headers = {'Accept': 'application/json'}
+    try:
+        apiResponseFromGithub = json.loads(
+            requests.post('https://github.com/login/oauth/access_token',
+                          data={'client_id': constants.GITHUB_CLIENT_ID,
+                                'client_secret': constants.GITHUB_CLIENT_SECRET,
+                                'code': code},
+                          headers=headers).content)
+
+        return apiResponseFromGithub['access_token']
+    except:
+        raise Exception('Couldnt retrieve access token from github')
+
+
+def getNameAndEmailFromGithub(accessToken):
+    headers = {'Accept': 'application/json'}
+    try:
+        userInfo = json.loads(
+            requests.get('https://api.github.com/user?' +
+                         'access_token=' + accessToken,
+                         headers=headers).content)
+        return (userInfo['name'], userInfo['email'])
+    except:
+        raise Exception("Couldn't retrieve the user and email from api.github")
+
+
+def storeUserWithJson(username, email):
+    try:
+        newUser = models.User(username, email)
+        db.session.add(newUser)
+        db.session.commit()
+        return newUser
+    except:
+        db.session.rollback()
+        raise Exception('Rollbacking the Database Session')
+
+
+@app.route('/api/login/facebook', methods=['POST'])
+def callbackLoginWithFacebook():
+    try:
+        username = request.form['name']
+        email = request.form['email']
+        newUser = storeUserWithJson(username, email)
+        app.logger.info('new user created! ' + str(newUser))
+        return '1'
+    except Exception as e:
+        app.logger.error(e)
+        return '0'
 
 
 @app.route('/logged')
 def loggedIn():
-    #Todo: Return if the user is logged in
-    return make_response(False)
+    return make_response('False')
 
 
 @app.route('/leaderboard')

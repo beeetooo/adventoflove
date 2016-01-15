@@ -5,7 +5,7 @@ class User(app.db.Model):
     __tablename__ = 'aoluser'
 
     id = app.db.Column(app.db.Integer, primary_key=True)
-    username = app.db.Column(app.db.String(80), unique=True)
+    username = app.db.Column(app.db.String(80))
     email = app.db.Column(app.db.String(120), unique=True)
 
     def __init__(self, username, email):
