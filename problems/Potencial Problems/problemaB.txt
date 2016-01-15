@@ -1,0 +1,2 @@
+Se recibe un arreglo de integers, regresas cualquier numero que se repita mas de una vez
+o se recibe un arreglo de chars (o un string) y se regresa el char que mas se repita y cuantas veces se repitio

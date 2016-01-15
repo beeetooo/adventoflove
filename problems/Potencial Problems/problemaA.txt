@@ -1,0 +1,6 @@
+
+ El problema trata de regresas la maxima suma de numeros continuos dentro de un arreglo ej:
+ {-1, -3, -4, 5, 6, -10, 3, 1} ->  5+6 = 11
+ {2, 2, 3 ,5 , -1 , 0, -6, 5} -> 2+2+3+5 = 12
+ {-1, -9 , -4, -5, -6, -9, -11} -> 0 (Mejor ni sumes)
+ { 0, -5, 23, 1, -5, 30, -2} -> 23 + 1 -5 + 30 = 49 (a veces es mejor sumar los negativos)
