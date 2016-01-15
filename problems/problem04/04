@@ -1,1 +1,24 @@
-#Let's get more interesting now
+# A day without Melanie
+
+Harto de los memes de "Sé como José" y "Yo que sé no soy 100tyfiko", Alan, un amigo de Bryan, pega un cartel afuera de su salón diciendo muchas malas palabras y agrediendo a las redes sociales por ser tan /%#$%%"#&.
+
+Bryan le dice que no es para tanto, y le sugiere que mejor borre sus redes sociales.
+
+El problema es que Alan tiene algunos documentos importantes guardados en su facebook e instagram (no son fotos de cabras, en serio). Lo que tiene que hacer es valorar si la importancia de sus documentos es tan relevante como para impedir que cancele sus redes sociales.
+
+Para esto, Bryan se metió a www.getyoursocialnetworksinfo.com/info/xXx_alanMoxito_xXx, y consiguió todos los documentos que Alan tiene en sus redes sociales. Ahora el problema era encontrar todos los documentos que tuvieran información relevante.
+
+Un documento con información relevante tiene el siguiente formato:
+
+{nombre_del_documento: información}
+
+1. El nombre del documento debe estar compuesto de tres vocales (sin que se repitan) y tres letras iguales, sin importar el orden.
+2. La información del documento debe ser un palíndromo o un anagrama, de lo contrario, la importancia del documento es -1.
+3. Si es un palíndromo, la importancia del documento es 2.
+4. Si es un anagrama, la importancia del documento es 1.
+
+Alan valoró su situación, y si encuentra que la importancia de sus documentos es mayor a 300, no borrará sus redes sociales.
+
+¿Ayudarías a Alan a calcular la importancia de sus documentos en sus redes sociales?
+
+Por cierto, Melanie se enfermó y no fue a la escuela... fin.
