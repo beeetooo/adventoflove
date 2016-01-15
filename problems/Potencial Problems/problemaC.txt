@@ -1,4 +1,4 @@
 Dutch flag problem
 
- Se te da un arreglo de integers y se te da un int i, tienes que reacomodar el arreglo de tal manera que
- i esta en la posicion central, a la izquierda de i esten numeros menores a i y a la derecha los mayores a i (sin importar el orden)
+Se te da un arreglo de integers y se te da un int i, tienes que reacomodar el arreglo de tal manera que
+i esta en la posicion central, a la izquierda de i esten numeros menores a i y a la derecha los mayores a i (sin importar el orden)

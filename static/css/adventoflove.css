@@ -8,7 +8,11 @@ p {
 
 #login-buttons{
     float: right;
-    margin-top: 10px;
+    margin-top: 10px
+}
+
+.problems p {
+    font-size: 20px;
 }
 
 @media(min-width:768px) {
@@ -22,4 +26,12 @@ p {
 		width:40%;
 		margin-left:3%;
 	}
+
+    .problems {
+        width: 170%;
+    }
+
+    .problems p {
+        font-size: 18px;
+    }
 }
