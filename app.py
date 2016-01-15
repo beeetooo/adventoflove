@@ -78,13 +78,13 @@ def callbackLoginWithGithub():
         username, email = getNameAndEmailFromGithub(accessToken)
         newUser = storeUserWithJson(username, email)
         app.logger.info('User created successfully: ' + str(newUser))
-        response = make_response(render_template('index.html'))
+        response = make_response(url_for('index'))
         response.set_cookie('adventoflove_username', username)
         return response
     except Exception as e:
         app.logger.error(e)
 
-    return render_template('index.html')
+    return redirect(url_for('index'))
 
 
 def getGithubAccessToken(code):
