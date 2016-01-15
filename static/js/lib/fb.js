@@ -1,6 +1,7 @@
 
 // Load the Facebook SDK asynchronously (Obligatory)
 // No need to know what this code does.
+function loadTheFacebookSDK(){
   (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
@@ -8,6 +9,9 @@
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
+}
+
+loadTheFacebookSDK();
 
 window.fbAsyncInit = function() {
   FB.init({
@@ -26,46 +30,28 @@ window.fbAsyncInit = function() {
 };
 
 
-// This is called with the results from from FB.getLoginStatus().
-function statusChangeCallback(response) {
-  if (response.status === 'connected') {
-    // Logged into your app and Facebook.
-    retrieveUserInfo();
-  } else if (response.status === 'not_authorized') {
-    // The person is logged into Facebook, but not your app.
-    console.log("Not authorized by Facebook");
-  } else {
-    // The person is not logged into Facebook, so we're not sure if
-    // they are logged into this app or not.
-    console.log("You are not logged into Facebook");
-  }
-}
-
-// This function is called when someone finishes with the Login
-// Button.  See the onlogin handler attached to it in the sample
-// code below.
-function checkLoginState() {
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-}
-
-
 function retrieveUserInfo() {
-  console.log('Welcome!  Fetching your information.... ');
   FB.api('/me?fields=name,email', function(response) {
-    console.log('We got the info! Name: ' + response.name);
+    console.log('Info: ' + response.name + " " + response.email);
+    $.ajax({
+      type: 'POST',
+      data: response,
+      url: '/api/login/facebook'
+    })
+    .done(function(serverResponse){
+      console.log('Done');
+      //Needs to refactor this.
+      $("#login-div").hide();
+    });
     //TODO: Store username and email data in our DB.
   });
 }
-
-
 
 //Wrapper for all the front-end logic in the login buttons
 var LoginButtons = React.createClass({
   render: function() {
   return(
-    <div>
+    <div id="login-div">
       <div className="fb-login-button"
            data-max-rows="1"
            data-size="large"
