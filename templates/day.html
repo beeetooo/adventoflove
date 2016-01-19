@@ -8,10 +8,15 @@
 	<div class="problems">
 		<h1>Day {{ day }} - {{ name }} </h1>
 		<div id="problem">
-			{% for item in problem %}
-    			<p>{{ item }}</p>
+			{% for line in problem %}
+    			<p>{{ line }}</p>
 			{% endfor %}
 		</div>
+        <div id="solution">
+            <form action="" method="POST" accept-charset="utf-8">
+                <input type="text" name="" value="" placeholder="">
+            </form>
+        </div>
 	</div>
 {% endblock %}
 

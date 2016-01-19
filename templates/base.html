@@ -15,11 +15,11 @@
         <nav class="navbar navbar-inverse" role="navigation">
             <div class="container">
                 <a class="navbar-brand" href="{{ url_for('index') }}">Advent Of Love</a>
-            {% block login_buttons %}
-                <div class="container" id="login-buttons">
-                </div>
-                <script type="text/babel" src="{{ url_for('static', filename='js/lib/fb.js') }}" ></script>
-            {% endblock %}
+                {% block login_buttons %}
+                    <div class="container" id="login-buttons">
+                    </div>
+                    <script type="text/babel" src="{{ url_for('static', filename='js/lib/fb.js') }}" ></script>
+                {% endblock %}
             </div>
         </nav>
         {% block user %}{% endblock %}

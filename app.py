@@ -29,7 +29,7 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
-    user = request.cookies.get('adventoflove_username')
+    user = request.cookies.get('username')
     if not user:
         user = ""
     else:
@@ -79,7 +79,8 @@ def callbackLoginWithGithub():
         newUser = storeUserWithJson(username, email)
         app.logger.info('User created successfully: ' + str(newUser))
         response = make_response(url_for('index'))
-        response.set_cookie('adventoflove_username', username)
+        response.set_cookie('username', username)
+        response.set_cookie('email', email)
         return response
     except Exception as e:
         app.logger.error(e)
@@ -130,12 +131,19 @@ def callbackLoginWithFacebook():
     try:
         username = request.form['name']
         email = request.form['email']
+        # queryIfUserExists()
         newUser = storeUserWithJson(username, email)
         app.logger.info('new user created! ' + str(newUser))
-        return '1'
+        newUserJson = '{"username": "' + newUser.username + '", ' +\
+                      '"email": "' + newUser.email + '"}'
+        return json.dumps(newUserJson)
     except Exception as e:
         app.logger.error(e)
-        return '0'
+        return str(e)
+
+
+def queryIfUserExists(email):
+    return User.query.filter_by(username='admin').first()
 
 
 @app.route('/logged')
